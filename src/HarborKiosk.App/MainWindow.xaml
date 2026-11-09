@@ -4,8 +4,6 @@
         xmlns:vm="clr-namespace:HarborKiosk.App.ViewModels"
         xmlns:views="clr-namespace:HarborKiosk.App.Views"
         Title="Harbor Bank Kiosk"
-        Width="450" Height="800"
-        WindowStartupLocation="CenterScreen"
         Background="#0B2427"
         FontFamily="Segoe UI"
         UseLayoutRounding="True"

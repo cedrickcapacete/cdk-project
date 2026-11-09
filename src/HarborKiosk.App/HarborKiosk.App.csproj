@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <None Include="Assets\**" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

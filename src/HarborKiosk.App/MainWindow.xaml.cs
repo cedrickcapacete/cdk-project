@@ -20,13 +20,23 @@ public partial class MainWindow : Window
         DataContext = navigation;
         shell.ExitRequested += (_, _) => ForceClose();
 
+        WindowStyle = WindowStyle.None;
+        ResizeMode = ResizeMode.NoResize;
+
         if (options.KioskMode)
         {
-            WindowStyle = WindowStyle.None;
-            ResizeMode = ResizeMode.NoResize;
-            WindowState = WindowState.Maximized;
             Topmost = true;
             Cursor = Cursors.None;
+            Left = 0;
+            Top = 0;
+            Width = SystemParameters.PrimaryScreenWidth;
+            Height = SystemParameters.PrimaryScreenHeight;
+        }
+        else
+        {
+            Width = 540;
+            Height = 960;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
     }
 
@@ -43,7 +53,7 @@ public partial class MainWindow : Window
     protected override void OnPreviewKeyDown(KeyEventArgs e)
     {
         var ctrlShift = Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift);
-        if (_options.KioskMode && ctrlShift && e.Key == Key.F12)
+        if (ctrlShift && e.Key == Key.F12)
         {
             ForceClose();
             return;
