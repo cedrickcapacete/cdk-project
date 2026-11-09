@@ -1,0 +1,21 @@
+<UserControl x:Class="HarborKiosk.App.Controls.NumericKeypad"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UniformGrid Columns="3" Rows="4">
+        <Button Style="{StaticResource KeypadButton}" Content="1" Command="{Binding DigitCommand}" CommandParameter="1" />
+        <Button Style="{StaticResource KeypadButton}" Content="2" Command="{Binding DigitCommand}" CommandParameter="2" />
+        <Button Style="{StaticResource KeypadButton}" Content="3" Command="{Binding DigitCommand}" CommandParameter="3" />
+        <Button Style="{StaticResource KeypadButton}" Content="4" Command="{Binding DigitCommand}" CommandParameter="4" />
+        <Button Style="{StaticResource KeypadButton}" Content="5" Command="{Binding DigitCommand}" CommandParameter="5" />
+        <Button Style="{StaticResource KeypadButton}" Content="6" Command="{Binding DigitCommand}" CommandParameter="6" />
+        <Button Style="{StaticResource KeypadButton}" Content="7" Command="{Binding DigitCommand}" CommandParameter="7" />
+        <Button Style="{StaticResource KeypadButton}" Content="8" Command="{Binding DigitCommand}" CommandParameter="8" />
+        <Button Style="{StaticResource KeypadButton}" Content="9" Command="{Binding DigitCommand}" CommandParameter="9" />
+        <Border />
+        <Button Style="{StaticResource KeypadButton}" Content="0" Command="{Binding DigitCommand}" CommandParameter="0" />
+        <Button Style="{StaticResource KeypadButton}" Background="Transparent" BorderThickness="0"
+                AutomationProperties.Name="Delete" Command="{Binding BackspaceCommand}">
+            <Path Style="{StaticResource ButtonIconPath}" Width="24" Height="18" Data="{StaticResource BackspaceGeometry}" />
+        </Button>
+    </UniformGrid>
+</UserControl>

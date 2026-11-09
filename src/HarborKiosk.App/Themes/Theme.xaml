@@ -1,0 +1,236 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:conv="clr-namespace:HarborKiosk.App.Converters">
+
+    <!-- Palette (from the Figma prototype) -->
+    <SolidColorBrush x:Key="TealBrush" Color="#0E7C74" />
+    <SolidColorBrush x:Key="TealPressedBrush" Color="#0A5F59" />
+    <SolidColorBrush x:Key="TealSoftBrush" Color="#DDEFEB" />
+    <SolidColorBrush x:Key="TealTintBrush" Color="#EEF6F4" />
+    <SolidColorBrush x:Key="TealOnDarkBrush" Color="#5FC4B8" />
+    <SolidColorBrush x:Key="LimeBrush" Color="#D9EC6E" />
+    <SolidColorBrush x:Key="LimePressedBrush" Color="#C4D957" />
+    <SolidColorBrush x:Key="InkBrush" Color="#0F2F33" />
+    <SolidColorBrush x:Key="InkDeepBrush" Color="#081E21" />
+    <SolidColorBrush x:Key="TextBrush" Color="#132A2E" />
+    <SolidColorBrush x:Key="MutedBrush" Color="#5D7073" />
+    <SolidColorBrush x:Key="SubtleBrush" Color="#8FA0A2" />
+    <SolidColorBrush x:Key="LineBrush" Color="#DAE4E2" />
+    <SolidColorBrush x:Key="DisabledBrush" Color="#B8CAC7" />
+    <SolidColorBrush x:Key="ErrorBrush" Color="#B42318" />
+    <SolidColorBrush x:Key="CardBrush" Color="#FFFFFF" />
+
+    <LinearGradientBrush x:Key="ScreenBackgroundBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Offset="0" Color="#F8FBFA" />
+        <GradientStop Offset="1" Color="#E8F2F0" />
+    </LinearGradientBrush>
+
+    <!-- Converters -->
+    <conv:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+    <conv:BoolToVisibilityConverter x:Key="InverseBoolToVisibility" Invert="True" />
+    <conv:NullToVisibilityConverter x:Key="NullToCollapsed" />
+
+    <!-- Icon geometries -->
+    <PathGeometry x:Key="ChevronRightGeometry" Figures="M0,0 L6,6 L0,12" />
+    <PathGeometry x:Key="ChevronLeftGeometry" Figures="M6,0 L0,6 L6,12" />
+    <PathGeometry x:Key="CheckGeometry" Figures="M0,6 L5,11 L14,1" />
+    <PathGeometry x:Key="LockGeometry" Figures="M2,7 L12,7 L12,15 L2,15 Z M4,7 L4,4.5 A3,3 0 0 1 10,4.5 L10,7" />
+    <PathGeometry x:Key="BackspaceGeometry" Figures="M7,1 L21,1 L21,15 L7,15 L1,8 Z M11,5 L17,11 M17,5 L11,11" />
+    <PathGeometry x:Key="ExitGeometry" Figures="M9,1 L1,1 L1,15 L9,15 M6,8 L15,8 M11,4 L15,8 L11,12" />
+    <PathGeometry x:Key="ClockGeometry" Figures="M8,1 A7,7 0 1 1 7.99,1 Z M8,4 L8,8 L11,10" />
+    <PathGeometry x:Key="CardGeometry" Figures="M1,3 L19,3 L19,15 L1,15 Z M4,8 L10,8 M4,11 L8,11" />
+    <PathGeometry x:Key="ArrowDownGeometry" Figures="M6,0 L6,14 M1,9 L6,14 L11,9" />
+    <PathGeometry x:Key="ArrowUpGeometry" Figures="M6,14 L6,0 M1,5 L6,0 L11,5" />
+    <PathGeometry x:Key="HistoryGeometry" Figures="M1,8 A7,7 0 1 0 3,3 M1,1 L1,4 L4,4 M8,4 L8,8 L11,10" />
+
+    <Style x:Key="IconPath" TargetType="Path">
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="StrokeThickness" Value="2" />
+        <Setter Property="StrokeLineJoin" Value="Round" />
+        <Setter Property="StrokeStartLineCap" Value="Round" />
+        <Setter Property="StrokeEndLineCap" Value="Round" />
+        <Setter Property="SnapsToDevicePixels" Value="False" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="ButtonIconPath" TargetType="Path" BasedOn="{StaticResource IconPath}">
+        <Setter Property="Stroke" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+    </Style>
+
+    <!-- Text -->
+    <Style x:Key="EyebrowText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource TealBrush}" />
+    </Style>
+
+    <Style x:Key="HeadingText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+
+    <Style x:Key="BodyText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="{StaticResource MutedBrush}" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="LineHeight" Value="24" />
+    </Style>
+
+    <Style x:Key="ErrorText" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Foreground" Value="{StaticResource ErrorBrush}" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Margin" Value="0,10,0,0" />
+    </Style>
+
+    <!-- Containers -->
+    <Style x:Key="Card" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource CardBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource LineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="14" />
+    </Style>
+
+    <Style x:Key="EntryField" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource CardBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource TealBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="Padding" Value="16,14,16,10" />
+    </Style>
+
+    <Style x:Key="IconBadge" TargetType="Border">
+        <Setter Property="Width" Value="52" />
+        <Setter Property="Height" Value="52" />
+        <Setter Property="CornerRadius" Value="26" />
+        <Setter Property="Background" Value="{StaticResource TealSoftBrush}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Buttons -->
+    <Style x:Key="KioskButtonBase" TargetType="Button">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Padding" Value="20,0" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="12"
+                            Padding="{TemplateBinding Padding}"
+                            RenderTransformOrigin="0.5,0.5">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          RecognizesAccessKey="False" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.97" ScaleY="0.97" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource KioskButtonBase}">
+        <Setter Property="Height" Value="62" />
+        <Setter Property="Background" Value="{StaticResource TealBrush}" />
+        <Setter Property="Foreground" Value="White" />
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource TealPressedBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource DisabledBrush}" />
+                <Setter Property="Foreground" Value="#EAF2F1" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="LimeButton" TargetType="Button" BasedOn="{StaticResource KioskButtonBase}">
+        <Setter Property="Height" Value="62" />
+        <Setter Property="Background" Value="{StaticResource LimeBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource InkBrush}" />
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource LimePressedBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="OutlineButton" TargetType="Button" BasedOn="{StaticResource KioskButtonBase}">
+        <Setter Property="Height" Value="60" />
+        <Setter Property="Background" Value="{StaticResource CardBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource TealBrush}" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="Foreground" Value="{StaticResource TealBrush}" />
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource TealTintBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="KeypadButton" TargetType="Button" BasedOn="{StaticResource KioskButtonBase}">
+        <Setter Property="Height" Value="62" />
+        <Setter Property="Margin" Value="6" />
+        <Setter Property="FontSize" Value="26" />
+        <Setter Property="Background" Value="{StaticResource CardBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource LineBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource TealSoftBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="GhostButton" TargetType="Button" BasedOn="{StaticResource KioskButtonBase}">
+        <Setter Property="Height" Value="44" />
+        <Setter Property="Padding" Value="10,0" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+    </Style>
+
+    <Style x:Key="CircleButton" TargetType="Button">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Width" Value="46" />
+        <Setter Property="Height" Value="46" />
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Root" Background="{StaticResource CardBrush}" BorderBrush="{StaticResource LineBrush}"
+                            BorderThickness="1" CornerRadius="23">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Root" Property="Background" Value="{StaticResource TealSoftBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

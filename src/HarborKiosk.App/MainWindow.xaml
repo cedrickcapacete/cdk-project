@@ -1,0 +1,42 @@
+﻿<Window x:Class="HarborKiosk.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:HarborKiosk.App.ViewModels"
+        xmlns:views="clr-namespace:HarborKiosk.App.Views"
+        Title="Harbor Bank Kiosk"
+        Width="450" Height="800"
+        WindowStartupLocation="CenterScreen"
+        Background="#0B2427"
+        FontFamily="Segoe UI"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Ideal"
+        Stylus.IsPressAndHoldEnabled="False">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:WelcomeViewModel}">
+            <views:WelcomeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AccountNumberViewModel}">
+            <views:AccountNumberView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AmountViewModel}">
+            <views:AmountView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:InsertChequeViewModel}">
+            <views:InsertChequeView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CompleteViewModel}">
+            <views:CompleteView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ThankYouViewModel}">
+            <views:ThankYouView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HistoryViewModel}">
+            <views:HistoryView />
+        </DataTemplate>
+    </Window.Resources>
+
+    <!-- Screens are laid out on a 540x960 portrait canvas and scaled to the display (1080x1920 on the kiosk). -->
+    <Viewbox Stretch="Uniform">
+        <ContentControl Width="540" Height="960" Focusable="False" Content="{Binding CurrentViewModel}" />
+    </Viewbox>
+</Window>
