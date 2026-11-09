@@ -33,6 +33,12 @@
         <DataTemplate DataType="{x:Type vm:HistoryViewModel}">
             <views:HistoryView />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AdminPinViewModel}">
+            <views:AdminPinView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AdminViewModel}">
+            <views:AdminView />
+        </DataTemplate>
     </Window.Resources>
 
     <!-- Screens are laid out on a 540x960 portrait canvas and scaled to the display (1080x1920 on the kiosk). -->

@@ -50,8 +50,11 @@
             </Grid.RowDefinitions>
 
             <ctl:BrandLogo Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" />
-            <Border HorizontalAlignment="Right" Padding="14,8" CornerRadius="18" Background="#26FFFFFF"
-                    BorderBrush="#40FFFFFF" BorderThickness="1">
+            <!-- Staff entry: press and hold this badge for 3 seconds (or Ctrl+Shift+A). -->
+            <Border x:Name="AdminHotspot" HorizontalAlignment="Right" Padding="14,8" CornerRadius="18" Background="#26FFFFFF"
+                    BorderBrush="#40FFFFFF" BorderThickness="1"
+                    PreviewMouseLeftButtonDown="OnHotspotDown" PreviewMouseLeftButtonUp="OnHotspotUp"
+                    MouseLeave="OnHotspotUp" LostMouseCapture="OnHotspotUp">
                 <StackPanel Orientation="Horizontal">
                     <Path Style="{StaticResource IconPath}" Width="11" Height="13" Stroke="White" StrokeThickness="1.6"
                           Data="{StaticResource LockGeometry}" />

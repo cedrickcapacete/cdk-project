@@ -12,12 +12,13 @@ public partial class MainWindow : Window
     private readonly KioskOptions _options;
     private bool _allowClose;
 
-    public MainWindow(NavigationService navigation, KioskOptions options)
+    public MainWindow(NavigationService navigation, KioskOptions options, KioskShell shell)
     {
         InitializeComponent();
         _navigation = navigation;
         _options = options;
         DataContext = navigation;
+        shell.ExitRequested += (_, _) => ForceClose();
 
         if (options.KioskMode)
         {
@@ -41,10 +42,17 @@ public partial class MainWindow : Window
 
     protected override void OnPreviewKeyDown(KeyEventArgs e)
     {
-        if (_options.KioskMode && e.Key == Key.F12 && Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift))
+        var ctrlShift = Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift);
+        if (_options.KioskMode && ctrlShift && e.Key == Key.F12)
         {
-            _allowClose = true;
-            Close();
+            ForceClose();
+            return;
+        }
+
+        if (ctrlShift && e.Key == Key.A && _navigation.CurrentViewModel is WelcomeViewModel welcome)
+        {
+            welcome.OpenAdminCommand.Execute(null);
+            e.Handled = true;
             return;
         }
 
@@ -63,6 +71,12 @@ public partial class MainWindow : Window
         }
 
         base.OnPreviewKeyDown(e);
+    }
+
+    private void ForceClose()
+    {
+        _allowClose = true;
+        Close();
     }
 
     private static char? ToDigit(Key key) => key switch

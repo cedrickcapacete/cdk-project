@@ -23,15 +23,28 @@ public sealed class KioskOptions
 
     public TimeSpan ReceiptScreenTimeout { get; init; } = TimeSpan.FromSeconds(20);
 
-    /// <summary>--kiosk: fullscreen, topmost, no cursor, close blocked (Ctrl+Shift+F12 exits). --print: send receipts to the default Windows printer.</summary>
+    public const string DefaultAdminPin = "2468";
+
+    public string AdminPin { get; init; } = DefaultAdminPin;
+
+    /// <summary>
+    /// --kiosk: fullscreen, topmost, no cursor, close blocked (Ctrl+Shift+F12 exits). --print: send receipts to the default Windows printer.
+    /// --admin-pin=NNNN (or HARBOR_ADMIN_PIN): staff PIN for the admin screen.
+    /// </summary>
     public static KioskOptions FromArgs(string[] args)
     {
         bool Has(string flag) => args.Any(a => string.Equals(a, flag, StringComparison.OrdinalIgnoreCase));
+
+        string? Value(string name) => args
+            .Where(a => a.StartsWith(name + "=", StringComparison.OrdinalIgnoreCase))
+            .Select(a => a[(name.Length + 1)..])
+            .LastOrDefault();
 
         return new KioskOptions
         {
             KioskMode = Has("--kiosk"),
             PrintToDefaultPrinter = Has("--print"),
+            AdminPin = Value("--admin-pin") ?? Environment.GetEnvironmentVariable("HARBOR_ADMIN_PIN") ?? DefaultAdminPin,
         };
     }
 }

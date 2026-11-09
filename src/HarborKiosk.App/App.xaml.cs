@@ -30,6 +30,14 @@ public partial class App : Application
             args.SetObserved();
         };
 
+        if (!AdminAccess.IsWellFormed(options.AdminPin))
+        {
+            MessageBox.Show($"The admin PIN must be {AdminAccess.MinPinLength}-{AdminAccess.MaxPinLength} digits.",
+                "Harbor Bank Kiosk", MessageBoxButton.OK, MessageBoxImage.Error);
+            Shutdown(1);
+            return;
+        }
+
         _services = ConfigureServices(options);
 
         var database = _services.GetRequiredService<KioskDatabase>();
@@ -61,6 +69,7 @@ public partial class App : Application
         services.AddSingleton(new DepositPolicy(options.MaxDepositCents, Path.Combine(options.DataDirectory, "cheque-images")));
         services.AddSingleton<AccountService>();
         services.AddSingleton<DepositService>();
+        services.AddSingleton(new AdminAccess(options.AdminPin));
 
         // Swap these for vendor implementations when the kiosk hardware is connected.
         services.AddSingleton<ICheckScanner, SimulatedCheckScanner>();
@@ -71,6 +80,7 @@ public partial class App : Application
         services.AddSingleton<DepositSession>();
         services.AddSingleton<NavigationService>();
         services.AddSingleton<IdleTimeoutService>();
+        services.AddSingleton<KioskShell>();
 
         services.AddTransient<WelcomeViewModel>();
         services.AddTransient<AccountNumberViewModel>();
@@ -79,6 +89,8 @@ public partial class App : Application
         services.AddTransient<CompleteViewModel>();
         services.AddTransient<ThankYouViewModel>();
         services.AddTransient<HistoryViewModel>();
+        services.AddTransient<AdminPinViewModel>();
+        services.AddTransient<AdminViewModel>();
 
         services.AddSingleton<MainWindow>();
         return services.BuildServiceProvider();

@@ -91,15 +91,39 @@ public sealed class DepositService
             LIMIT $limit;";
         command.Parameters.AddWithValue("$accountId", account.Id);
         command.Parameters.AddWithValue("$limit", limit);
+        return ReadAll(command);
+    }
 
-        var deposits = new List<Deposit>();
-        using var reader = command.ExecuteReader();
-        while (reader.Read())
-        {
-            deposits.Add(Map(reader));
-        }
+    public IReadOnlyList<Deposit> GetLatestDeposits(int limit)
+    {
+        using var connection = _database.Open();
+        using var command = connection.CreateCommand();
+        command.CommandText = SelectColumns + @"
+            ORDER BY d.created_at DESC, d.id DESC
+            LIMIT $limit;";
+        command.Parameters.AddWithValue("$limit", limit);
+        return ReadAll(command);
+    }
 
-        return deposits;
+    /// <summary>Deposits whose local creation date falls within [from, to].</summary>
+    public IReadOnlyList<Deposit> GetDepositsBetween(DateOnly from, DateOnly to)
+    {
+        using var connection = _database.Open();
+        using var command = connection.CreateCommand();
+        // created_at is ISO-8601 with an offset, so compare loosely in SQL (a day either side) and exactly below.
+        command.CommandText = SelectColumns + @"
+            WHERE d.created_at >= $floor AND d.created_at < $ceiling
+            ORDER BY d.created_at DESC, d.id DESC;";
+        command.Parameters.AddWithValue("$floor", from.AddDays(-1).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+        command.Parameters.AddWithValue("$ceiling", to.AddDays(2).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
+
+        return ReadAll(command)
+            .Where(d =>
+            {
+                var day = DateOnly.FromDateTime(d.CreatedAt.Date);
+                return day >= from && day <= to;
+            })
+            .ToList();
     }
 
     public void MarkReceiptPrinted(long depositId)
@@ -164,6 +188,18 @@ public sealed class DepositService
         var path = Path.Combine(_policy.ImageDirectory, $"{reference}-{side}.tif");
         File.WriteAllBytes(path, image);
         return path;
+    }
+
+    private static List<Deposit> ReadAll(SqliteCommand command)
+    {
+        var deposits = new List<Deposit>();
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            deposits.Add(Map(reader));
+        }
+
+        return deposits;
     }
 
     private static Deposit Map(SqliteDataReader reader) => new(

@@ -30,6 +30,13 @@ public sealed partial class WelcomeViewModel : ViewModelBase
     [RelayCommand]
     private void ViewHistory() => Start(KioskFlow.History);
 
+    [RelayCommand]
+    private void OpenAdmin()
+    {
+        _session.Reset();
+        _navigation.NavigateTo<AdminPinViewModel>();
+    }
+
     private void Start(KioskFlow flow)
     {
         _session.Reset();
