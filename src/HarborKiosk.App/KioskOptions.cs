@@ -18,7 +18,7 @@ public sealed class KioskOptions
 
     public string KioskId { get; init; } = "HB-KIOSK-001";
 
-    public long MaxDepositCents { get; init; } = 500_000;
+    public long MaxDepositCents { get; init; } = 9_999_999_999;
 
     public TimeSpan IdleTimeout { get; init; } = TimeSpan.FromSeconds(60);
 

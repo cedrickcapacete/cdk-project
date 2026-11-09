@@ -15,10 +15,11 @@ public class KioskFormatTests
     }
 
     [Theory]
-    [InlineData(0, "$0.00")]
-    [InlineData(2_500, "$25.00")]
-    [InlineData(123_456_78, "$123,456.78")]
-    public void Money_formats_cents_as_dollars(long cents, string expected)
+    [InlineData(0, "₱0.00")]
+    [InlineData(2_500, "₱25.00")]
+    [InlineData(123_456_78, "₱123,456.78")]
+    [InlineData(9_999_999_999, "₱99,999,999.99")]
+    public void Money_formats_centavos_as_pesos(long cents, string expected)
     {
         Assert.Equal(expected, KioskFormat.Money(cents));
     }

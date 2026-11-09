@@ -15,7 +15,7 @@
                 <Border Style="{StaticResource IconBadge}">
                     <Border Width="26" Height="26" CornerRadius="13" BorderThickness="2" BorderBrush="{StaticResource TealBrush}">
                         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-2,0,0" FontSize="15"
-                                   FontWeight="Bold" Foreground="{StaticResource TealBrush}" Text="$" />
+                                   FontWeight="Bold" Foreground="{StaticResource TealBrush}" Text="₱" />
                     </Border>
                 </Border>
                 <TextBlock Style="{StaticResource HeadingText}" Margin="0,14,0,0" Text="Enter the cheque amount" />
@@ -27,11 +27,11 @@
                                    Text="DEPOSIT AMOUNT" />
                         <StackPanel Margin="0,2,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock Margin="0,8,4,0" VerticalAlignment="Top" FontSize="20" FontWeight="SemiBold"
-                                       Foreground="{StaticResource TealBrush}" Text="$" />
+                                       Foreground="{StaticResource TealBrush}" Text="₱" />
                             <TextBlock FontSize="40" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}"
                                        Text="{Binding AmountText}" />
                             <TextBlock Margin="6,0,0,10" VerticalAlignment="Bottom" FontSize="11"
-                                       Foreground="{StaticResource SubtleBrush}" Text="USD" />
+                                       Foreground="{StaticResource SubtleBrush}" Text="PHP" />
                         </StackPanel>
                     </StackPanel>
                 </Border>

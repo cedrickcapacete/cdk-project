@@ -8,7 +8,7 @@ namespace HarborKiosk.App.ViewModels;
 
 public sealed partial class AmountViewModel : KeypadStepViewModelBase
 {
-    private const long MaxEntryCents = 99_999_999;
+    private const long MaxEntryCents = 9_999_999_999;
 
     private readonly DepositService _deposits;
     private readonly DepositSession _session;

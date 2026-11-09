@@ -6,9 +6,23 @@ public static class KioskFormat
 {
     private static readonly CultureInfo UsCulture = CultureInfo.GetCultureInfo("en-US");
 
-    public static string Money(long cents) => (cents / 100m).ToString("C2", UsCulture);
+    public const string CurrencySymbol = "₱";
 
-    public static string MoneyNumber(long cents) => (cents / 100m).ToString("N2", UsCulture);
+    public const string CurrencyCode = "PHP";
+
+    // Explicit format so the peso sign doesn't depend on the OS's ICU/NLS data for en-PH.
+    private static readonly NumberFormatInfo PesoFormat = CreatePesoFormat();
+
+    public static string Money(long cents) => (cents / 100m).ToString("C2", PesoFormat);
+
+    public static string MoneyNumber(long cents) => (cents / 100m).ToString("N2", PesoFormat);
+
+    private static NumberFormatInfo CreatePesoFormat()
+    {
+        var format = (NumberFormatInfo)UsCulture.NumberFormat.Clone();
+        format.CurrencySymbol = CurrencySymbol;
+        return NumberFormatInfo.ReadOnly(format);
+    }
 
     public static string GroupAccountNumber(string digits)
     {

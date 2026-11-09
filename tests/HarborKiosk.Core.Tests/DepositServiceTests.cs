@@ -114,7 +114,7 @@ public class DepositServiceTests
 
         Assert.Contains("•••• 9012", text);
         Assert.DoesNotContain("123456789012", text);
-        Assert.Contains("$25.00", text);
+        Assert.Contains("₱25.00", text);
         Assert.Contains(deposit.Reference, text);
     }
 }
